@@ -6,11 +6,13 @@ Demonstrates programmatic tool calling using code fences
 instead of native tool calling API.
 """
 import tempfile
+
+from dotenv import load_dotenv
 from pathlib import Path
-
-from agentd import patch_openai_with_ptc, display_events
 from openai import OpenAI
+from agentd import patch_openai_with_ptc, display_events
 
+load_dotenv()
 
 SYSTEM_PROMPT = """You are an AI assistant with the ability to execute bash commands and create files.
 
@@ -78,7 +80,7 @@ def main():
                     for line in event.output.split('\n'):
                         print(f"   \033[36m{line}\033[0m")
                 if event.status == "failed":
-                    print(f"   \033[31m(failed)\033[0m")
+                    print("   \033[31m(failed)\033[0m")
                 print("─" * 50 + "\n")
 
             elif event.type == "turn_end":

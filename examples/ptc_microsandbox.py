@@ -10,12 +10,15 @@ Requirements:
     - KVM enabled (Linux) or Apple Silicon (macOS)
 """
 
+from dotenv import load_dotenv
+from openai import OpenAI
 from agentd import (
     patch_openai_with_ptc,
     display_events,
     create_microsandbox_cli_executor,
 )
-from openai import OpenAI
+
+load_dotenv()
 
 
 SYSTEM_PROMPT = """You are an AI assistant with the ability to execute code securely in a sandbox.

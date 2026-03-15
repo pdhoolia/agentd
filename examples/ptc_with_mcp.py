@@ -6,11 +6,13 @@ Shows how to use MCP servers with PTC. The MCP tools are exposed
 as Python functions the LLM can import and call.
 """
 import tempfile
-from pathlib import Path
 
 from agentd import patch_openai_with_ptc, display_events
 from agents.mcp.server import MCPServerStdio
+from dotenv import load_dotenv
 from openai import OpenAI
+
+load_dotenv()
 
 
 SYSTEM_PROMPT = """You are an AI assistant that can run bash commands and Python code.
@@ -87,7 +89,7 @@ def main():
                     for line in event.output.split('\n'):
                         print(f"   \033[36m{line}\033[0m")
                 if event.status == "failed":
-                    print(f"   \033[31m(failed)\033[0m")
+                    print("   \033[31m(failed)\033[0m")
                 print("─" * 50 + "\n")
             elif event.type == "turn_end":
                 print()

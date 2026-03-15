@@ -17,13 +17,15 @@ Requirements:
     - Linux AppArmor: may need `sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0`
 """
 
+from dotenv import load_dotenv
+from openai import OpenAI
 from agentd import (
     patch_openai_with_ptc,
     display_events,
     create_sandbox_runtime_executor,
 )
-from openai import OpenAI
 
+load_dotenv()
 
 SYSTEM_PROMPT = """You are an AI assistant with the ability to execute code securely in a sandbox.
 

@@ -5,12 +5,14 @@ PTC Example with @tool decorated functions.
 Shows how to register Python functions as tools that the LLM
 can discover and call via the skills directory.
 """
+
 import tempfile
-from pathlib import Path
 
 from agentd import patch_openai_with_ptc, display_events, tool
+from dotenv import load_dotenv
 from openai import OpenAI
 
+load_dotenv()
 
 # Register tools with @tool decorator
 @tool
@@ -126,7 +128,7 @@ def main():
                     for line in event.output.split('\n'):
                         print(f"   \033[36m{line}\033[0m")
                 if event.status == "failed":
-                    print(f"   \033[31m(failed)\033[0m")
+                    print("   \033[31m(failed)\033[0m")
                 print("─" * 50 + "\n")
             elif event.type == "turn_end":
                 print()
